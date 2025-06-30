@@ -1,0 +1,2 @@
+jupyter
+trialblazer==0.1.0
