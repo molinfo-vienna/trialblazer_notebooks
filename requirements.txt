@@ -1,3 +1,4 @@
-jupyter
+rdkit==2024.09.6
 trialblazer==0.1.0
-umap
+umap-learn
+jupyter
