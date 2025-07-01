@@ -18,7 +18,7 @@ $CONDAEXEC create -n trialblazer_article python=3.12
 $CONDAEXEC activate triablazer_article
 
 # Install the requirements
-pip install requirements.txt
+pip install -r requirements.txt
 
 # Download the data for the base model of trialblazer
 trialblazer-download
