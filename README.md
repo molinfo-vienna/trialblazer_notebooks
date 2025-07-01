@@ -29,7 +29,7 @@ jupyter notebook
 
 #### Note on the requirements
 
-We provide additionally the pip freeze and conda export dumps.
+We provide additionally the `pip freeze` and `$CONDAEXEC list` dumps.
 
 #### Link to the article
 
