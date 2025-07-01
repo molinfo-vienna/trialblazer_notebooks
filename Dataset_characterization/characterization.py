@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import Circle, Patch
 from tqdm import tqdm
 import umap
+from sklearn.preprocessing import StandardScaler
 from rdkit import Chem
 from rdkit.Chem import Descriptors, AllChem
 from rdkit.Chem.Scaffolds import MurckoScaffold
@@ -12,6 +13,24 @@ from rdkit.ML.Descriptors import MoleculeDescriptors
 
 def get_morgan2(mol):
     return list(AllChem.GetMorganFingerprintAsBitVect(mol,2,nBits=2048))
+
+def data_to_visualize_umap (df_1, df_2):
+    dataframe = pd.concat([df_1, df_2], axis=0,ignore_index=True)
+    property_data = dataframe.drop(columns=['SmilesForDropDu', 'db','Molecule'], axis=1)
+    # Physicochemical properties
+    scaled_property_data = StandardScaler().fit_transform(property_data)
+    dataframe.Molecule = dataframe.SmilesForDropDu.apply(Chem.MolFromSmiles)
+    # Morgan2 fingerprints
+    dataframe['fp'] = dataframe.Molecule.apply(get_morgan2)
+    morgan2_cols_list = ['morgan2_b'+ str(i) for i in list(range(2048))]
+    morgan2_df = pd.DataFrame(
+        dataframe['fp'].to_list(), 
+        columns=morgan2_cols_list, 
+        index=dataframe.index
+    )
+    dataframe = pd.concat([dataframe, morgan2_df], axis=1)
+    morgan2_cols = dataframe[morgan2_cols_list].to_numpy()
+    return dataframe, scaled_property_data, morgan2_cols
 
 def plot_umap_benignAndtoxic(np_data_toplot, dataframe,):
     colors={"benign_drugs": "#ff7f00",
