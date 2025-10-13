@@ -31,7 +31,7 @@ We provide additionally the `pip freeze` and `$CONDAEXEC list` dumps.
 
 ### Reproduce the experiments
 
-1. Download the precomputed_data_for_reproduction_with_notebooks from: https://doi.org/10.5281/zenodo.15783346
+1. Download the precomputed_data_for_reproduction_with_notebooks from: https://doi.org/10.5281/zenodo.17311675
 2. Unzip and place the files in trialblazer_notebooks/Data
 3. Run the notebooks
 
